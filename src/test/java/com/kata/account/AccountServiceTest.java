@@ -10,8 +10,10 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 class AccountServiceTest {
@@ -32,7 +34,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void shouldSuccessfullyMakeDeposit() {
+    void itShouldSuccessfullyMakeDeposit() {
         // Given
         Account account = new Account(20.0, new ArrayList<>(), new Client("John", "john", "123"));
         // When
@@ -45,7 +47,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void shouldSuccessfullyMakeWithdrawal() throws NotEnoughMoneyException {
+    void itShouldSuccessfullyMakeWithdrawal() throws NotEnoughMoneyException {
         // Given
         Client client = new Client("John", "john", "123");
         Account account = new Account(20.0, new ArrayList<>(), client);
@@ -59,14 +61,16 @@ class AccountServiceTest {
     }
 
     @Test
-    public void shouldNotMakeAWithdrawalWithInsufficientFunds() throws NotEnoughMoneyException {
+    public void itShouldNotMakeAWithdrawalWithInsufficientFunds() throws NotEnoughMoneyException {
         // Given
         Client client = new Client("John", "john", "123");
         Account account = new Account(20.0, new ArrayList<>(), client);
+        given(accountRepository.retrieveAmount(account, 30.0)).willThrow(new NotEnoughMoneyException("Not enough money"));
+
         // When
-        underTest.withdraw(account, 50.0);
         // Then
-        ArgumentCaptor<Account> argumentCaptor = ArgumentCaptor.forClass(Account.class);
-        verify(accountRepository).retrieveAmount(argumentCaptor.capture(), eq(50.0));
+        assertThatThrownBy(() -> underTest.withdraw(account, 30.0))
+                .isInstanceOf(NotEnoughMoneyException.class)
+                .hasMessageContaining("Not enough money");
     }
 }

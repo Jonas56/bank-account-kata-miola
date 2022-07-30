@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class AccountRepositoryTest {
     private AccountRepository underTest;
@@ -18,43 +18,45 @@ class AccountRepositoryTest {
     }
 
     @Test
-    void shouldAddOperationToAccount() {
+    void itShouldAddOperationToAccount() {
         // Given
         Account account = new Account(20.0, new ArrayList<>(), new Client("John", "john", "123"));
         Operation operation = new Deposit(10.0);
         // When
         underTest.addOperation(account, operation);
         // Then
-        assertEquals(1, account.getOperations().size());
+        assertThat(1).isEqualTo(account.getOperations().size());
     }
 
 
     @Test
-    void shouldAddAmountToAccount() {
+    void itShouldAddAmountToAccount() {
         // Given
         Account account = new Account(20.0, new ArrayList<>(), new Client("John", "john", "123"));
         // When
         underTest.addAmount(account, 10.0);
         // Then
-        assertEquals(30.0, account.getBalance());
+        assertThat(30.0).isEqualTo(account.getBalance());
     }
 
     @Test
-    void shouldRetrieveAmountFromAccount() throws NotEnoughMoneyException {
+    void itShouldRetrieveAmountFromAccount() throws NotEnoughMoneyException {
         // Given
         Account account = new Account(20.0, new ArrayList<>(), new Client("John", "john", "123"));
         // When
         underTest.retrieveAmount(account, 10.0);
         // Then
-        assertEquals(10.0, account.getBalance());
+        assertThat(10.0).isEqualTo(account.getBalance());
     }
 
     @Test
-    void shouldThrowNotEnoughMoneyExceptionWhenRetrievingAmountFromAccount() throws NotEnoughMoneyException {
+    void itShouldThrowNotEnoughMoneyExceptionWhenRetrievingAmountFromAccount() throws NotEnoughMoneyException {
         // Given
         Account account = new Account(20.0, new ArrayList<>(), new Client("John", "john", "123"));
         // When
-        assertThrows(NotEnoughMoneyException.class, () -> underTest.retrieveAmount(account, 30.0));
+        assertThatThrownBy(() -> underTest.retrieveAmount(account, 30.0))
+                .isInstanceOf(NotEnoughMoneyException.class)
+                .hasMessage("Not enough money");
     }
 
 }

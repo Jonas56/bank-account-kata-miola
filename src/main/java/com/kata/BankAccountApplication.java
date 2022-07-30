@@ -12,7 +12,7 @@ public class BankAccountApplication {
         AccountService accountService = new AccountServiceImp(accountRepository);
 
         /**
-         * Account 1 :
+         * Account 1 : Make deposit and withdrawal with sufficient funds
          */
         System.out.println("Account 1");
         Client client = new Client("John", "Doe", "password");
@@ -26,7 +26,7 @@ public class BankAccountApplication {
         }
         accountService.printAccountHistory(account);
         /**
-         * Account 2
+         * Account 2 : Make deposit and withdrawal with insufficient funds
          */
         System.out.println("-----------------");
         System.out.println("Account 2");

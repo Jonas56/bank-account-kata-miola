@@ -10,11 +10,12 @@ public class AccountRepository {
         account.setBalance(account.getBalance() + amount);
     }
 
-    public void retrieveAmount(Account account, double amount) throws NotEnoughMoneyException {
+    public boolean retrieveAmount(Account account, double amount) throws NotEnoughMoneyException {
         if (account.getBalance() - amount < 0) {
             throw new NotEnoughMoneyException("Not enough money");
         }
         account.setBalance(account.getBalance() - amount);
+        return true;
     }
 
     public String getAccountHistory(Account account) {
