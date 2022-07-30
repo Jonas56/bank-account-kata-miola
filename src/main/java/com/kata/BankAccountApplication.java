@@ -16,7 +16,7 @@ public class BankAccountApplication {
          */
         System.out.println("Account 1");
         Client client = new Client("John", "Doe", "password");
-        Account account = new Account("123456789", 20.0, new ArrayList<>(), client);
+        Account account = new Account(20.0, new ArrayList<>(), client);
 
         accountService.deposit(account, 10.0);
         try {
@@ -31,7 +31,7 @@ public class BankAccountApplication {
         System.out.println("-----------------");
         System.out.println("Account 2");
         Client client2 = new Client("Jonas", "Tesla", "password");
-        Account account2 = new Account("987654321", 0.0, new ArrayList<>(), client2);
+        Account account2 = new Account(0.0, new ArrayList<>(), client2);
         try {
             accountService.withdraw(account2, 5.0);
         } catch (NotEnoughMoneyException e) {

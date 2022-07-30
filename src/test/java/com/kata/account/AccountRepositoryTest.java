@@ -20,7 +20,7 @@ class AccountRepositoryTest {
     @Test
     void shouldAddOperationToAccount() {
         // Given
-        Account account = new Account("123456789", 20.0, new ArrayList<>(), new Client("John", "john", "123"));
+        Account account = new Account(20.0, new ArrayList<>(), new Client("John", "john", "123"));
         Operation operation = new Deposit(10.0);
         // When
         underTest.addOperation(account, operation);
@@ -32,7 +32,7 @@ class AccountRepositoryTest {
     @Test
     void shouldAddAmountToAccount() {
         // Given
-        Account account = new Account("123456789", 20.0, new ArrayList<>(), new Client("John", "john", "123"));
+        Account account = new Account(20.0, new ArrayList<>(), new Client("John", "john", "123"));
         // When
         underTest.addAmount(account, 10.0);
         // Then
@@ -42,7 +42,7 @@ class AccountRepositoryTest {
     @Test
     void shouldRetrieveAmountFromAccount() throws NotEnoughMoneyException {
         // Given
-        Account account = new Account("123456789", 20.0, new ArrayList<>(), new Client("John", "john", "123"));
+        Account account = new Account(20.0, new ArrayList<>(), new Client("John", "john", "123"));
         // When
         underTest.retrieveAmount(account, 10.0);
         // Then
@@ -52,7 +52,7 @@ class AccountRepositoryTest {
     @Test
     void shouldThrowNotEnoughMoneyExceptionWhenRetrievingAmountFromAccount() throws NotEnoughMoneyException {
         // Given
-        Account account = new Account("123456789", 20.0, new ArrayList<>(), new Client("John", "john", "123"));
+        Account account = new Account(20.0, new ArrayList<>(), new Client("John", "john", "123"));
         // When
         assertThrows(NotEnoughMoneyException.class, () -> underTest.retrieveAmount(account, 30.0));
     }

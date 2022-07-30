@@ -34,7 +34,7 @@ class AccountServiceTest {
     @Test
     void shouldSuccessfullyMakeDeposit() {
         // Given
-        Account account = new Account("123456789", 20.0, new ArrayList<>(), new Client("John", "john", "123"));
+        Account account = new Account(20.0, new ArrayList<>(), new Client("John", "john", "123"));
         // When
         underTest.deposit(account, 50.0);
         // Then
@@ -48,7 +48,7 @@ class AccountServiceTest {
     void shouldSuccessfullyMakeWithdrawal() throws NotEnoughMoneyException {
         // Given
         Client client = new Client("John", "john", "123");
-        Account account = new Account("123456789", 20.0, new ArrayList<>(), client);
+        Account account = new Account(20.0, new ArrayList<>(), client);
         // When
         underTest.withdraw(account, 10.0);
         // Then
@@ -62,7 +62,7 @@ class AccountServiceTest {
     public void shouldNotMakeAWithdrawalWithInsufficientFunds() throws NotEnoughMoneyException {
         // Given
         Client client = new Client("John", "john", "123");
-        Account account = new Account("123456789", 20.0, new ArrayList<>(), client);
+        Account account = new Account(20.0, new ArrayList<>(), client);
         // When
         underTest.withdraw(account, 50.0);
         // Then

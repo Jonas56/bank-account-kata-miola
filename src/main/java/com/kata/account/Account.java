@@ -3,6 +3,7 @@ package com.kata.account;
 import com.kata.client.Client;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Account {
     private String accountNumber;
@@ -11,8 +12,8 @@ public class Account {
     private Client client;
 
 
-    public Account(String accountNumber, double balance, List<Operation> operations, Client client) {
-        this.accountNumber = accountNumber;
+    public Account(double balance, List<Operation> operations, Client client) {
+        this.accountNumber = UUID.randomUUID().toString();
         this.balance = balance;
         this.operations = operations;
         this.client = client;
