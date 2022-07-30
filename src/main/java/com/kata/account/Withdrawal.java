@@ -9,7 +9,7 @@ public class Withdrawal extends Operation {
 
     @Override
     public String toString() {
-        return "Withdraw{" +
+        return "Withdrawal{" +
                 "-" + this.getAmount() +
                 ", date=" + this.getDate() +
                 '}';
