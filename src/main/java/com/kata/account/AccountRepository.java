@@ -18,6 +18,8 @@ public class AccountRepository {
     }
 
     public String getAccountHistory(Account account) {
-        return account.getOperations().toString();
+        return account.getOperations().stream()
+                .map(Operation::toString)
+                .reduce("", (a, b) -> a + "\n" + b);
     }
 }
